@@ -1,3 +1,23 @@
+import subprocess
+import sys
+
+# Install missing dependencies
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    install('matplotlib')
+    import matplotlib.pyplot as plt
+
+try:
+    import seaborn as sns
+except ImportError:
+    install('seaborn')
+    import seaborn as sns
+
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
