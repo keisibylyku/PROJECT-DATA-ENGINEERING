@@ -196,4 +196,4 @@ production_countries_df = pd.DataFrame(country_counts.items(), columns=['product
 top_5_countries_df = production_countries_df.nlargest(5, 'film_count')
 
 # Pie Chart: Top 5 Production Countries Distribution
-fig9, ax9 = plt.subplots(figsize=(8
+fig9
