@@ -1,0 +1,44 @@
+In this project, we worked with the Steam Game Recommendations dataset, a collection of game-related data sourced from Kaggle. Our objective was to utilize MongoDB to store, manage, and query this data. The process involved creating a MongoDB database, inserting documents into various collections, and employing filtering and aggregation techniques to derive meaningful insights. MongoDB’s flexibility in handling semi-structured data was invaluable, as it allowed us to efficiently store and process complex game data structures, including arrays and nested documents.
+
+Setting Up MongoDB and Python Integration
+The first step involved establishing a connection between MongoDB and Python. We installed MongoDB locally on our system, in the directory C:\Program Files\MongoDB\Server\8.0\data\. To interact with MongoDB through Python, we used the pymongo library, which provides a user-friendly interface for MongoDB operations in Python.
+
+Once MongoDB was installed, we launched the MongoDB server and established a connection with Python using the MongoClient object from pymongo. This connection allowed us to access our MongoDB instance and perform operations such as creating databases and collections, inserting documents, and querying the data. The MongoClient object connected to MongoDB's default localhost address, mongodb://localhost:27017/, where 27017 is the default port for MongoDB.
+
+Database and Collection Creation
+We created a database named steam_games to store the dataset and divided the data into six separate collections:
+
+games – Contained detailed information about individual games.
+recommendations – Stored game recommendations provided by users.
+user_profiles – Included data about users’ profiles.
+game_reviews – Held reviews written by users for different games.
+user_game_stats – Contained user statistics for games played.
+user_playlists – Stored user-created playlists of games.
+Each collection corresponded to a subset of the dataset, ensuring that the data was organized in a way that allowed for efficient querying and aggregation.
+
+Inserting Documents into Collections
+To insert the dataset into MongoDB, we utilized the insert_many() method, which allowed us to insert multiple documents (records) into a collection at once. Each row from the dataset was converted into a JSON-like structure (a Python dictionary) to match MongoDB’s BSON format. After preparing the data, we inserted it into the respective collections.
+
+For instance, the games collection included fields such as game name, genre, price, and developer, while the recommendations collection contained data on which games were recommended by users based on their preferences.
+
+Views and Filters
+MongoDB’s querying capabilities allowed us to create "views" of the data. A view in this context refers to a filtered or aggregated subset of the data that displays specific attributes based on certain criteria. These views were achieved by using MongoDB’s filtering capabilities, which we accessed through find() queries in Python.
+
+For example, we filtered games developed by a specific developer or that had received ratings above a certain threshold. This was done using query operators such as $gte (greater than or equal to) and $eq (equals) within the find() method.
+
+One such filter view involved retrieving all games with a rating higher than 4.5, allowing us to see the top-rated games in the dataset. Another filter was applied to extract games released after 2015, focusing on more recent titles. MongoDB’s flexibility with querying enabled us to easily adjust these filters to explore different subsets of the data.
+
+Aggregations
+To gain deeper insights from the dataset, we employed MongoDB’s aggregation framework. Aggregation pipelines consist of a series of stages that process data, allowing for powerful operations such as grouping, filtering, sorting, and transforming data.
+
+In one case, we used aggregation to calculate the average rating of games per genre. This involved the $group operator, which grouped the games by genre, and the $avg operator, which calculated the average rating for each group. The result was a list of genres, each with its corresponding average rating, allowing us to identify the most highly-rated game genres.
+
+Another aggregation example involved using the $sum operator to count how many recommendations each game received, providing insights into the most recommended games. This aggregation pipeline also used the $sort stage to arrange the games in descending order based on their recommendation count, highlighting the most popular titles among users.
+
+Indexing for Query Optimization
+To improve the performance of our queries, we created indexes on key fields across the collections. Indexing in MongoDB is crucial when working with large datasets, as it significantly reduces query execution time by allowing MongoDB to quickly locate relevant data.
+
+For example, we created an index on the game_id field in the games collection, which was frequently used in queries. Similarly, we indexed the user_id field in the user_profiles and user_game_stats collections to optimize searches related to users. MongoDB allows for both single-field and compound indexes (where multiple fields are indexed together), depending on the nature of the queries.
+
+Conclusion
+In this project, we successfully integrated MongoDB with Python using the pymongo library and worked with the Steam Game Recommendations dataset to store and analyze game-related data. By dividing the data into collections, creating views through filtering, applying aggregations to extract insights, and optimizing queries through indexing, we were able to explore various facets of the dataset efficiently. MongoDB’s flexibility and powerful querying capabilities proved to be highly effective in managing and analyzing this dataset, allowing for meaningful data exploration and insight generation.
