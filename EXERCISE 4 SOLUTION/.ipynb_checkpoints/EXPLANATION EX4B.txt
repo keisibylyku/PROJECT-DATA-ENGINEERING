@@ -1,0 +1,43 @@
+
+The main objective of this Jupyter Notebook is to analyze the movies dataset by utilizing various visualizations that provide insights into the distribution and relationship of different attributes such as movie titles, languages, production countries, user ratings, and trends over time. By applying several types of charts—such as pie charts, histograms, heatmaps, and box plots—we aim to extract valuable information about movie production, popularity, and user feedback. This notebook also highlights patterns that might influence our understanding of the global movie industry.
+
+Steps Followed in the Analysis:
+Loading the Dataset:
+
+We began by loading the Unique Movies dataset, which is a cleaned and transformed version of the raw movies data, located in the GOLD layer of our Medallion Architecture. This dataset includes important attributes such as movie titles, original languages, production countries, budget, user ratings, and more.
+Pie Chart 1: Distribution of Top 10 Original Titles
+
+The first visualization aimed to show the most frequent original titles by their count. We generated a pie chart to display the top 10 titles that occur most often in the dataset.
+Purpose: This was done to observe whether certain titles appear more frequently than others, giving insight into title commonality in the dataset.
+Pie Chart 2: Top 5 Original Languages Distribution
+
+Next, we visualized the distribution of the top 5 languages in which movies were originally produced.
+Purpose: This chart helped us understand the linguistic diversity within the movies dataset and identify the dominant languages used in films.
+Pie Chart 3: Top 5 Production Countries
+
+Using a similar approach, we analyzed the top 5 countries that produced the most films. The production countries information was extracted from the dataset and processed to count occurrences per country.
+Purpose: This helped us recognize which countries are the biggest contributors to movie production, illustrating the global distribution of filmmaking.
+Histogram: Distribution of Average User Ratings
+
+We created a histogram to display how user ratings are distributed across all the movies in the dataset. The rating data was broken into bins to observe its frequency distribution.
+Purpose: The goal was to get an overview of how movies are rated by users and identify whether ratings are more concentrated in a particular range (e.g., high, low, or moderate).
+Correlation Matrix Heatmap
+
+We calculated the correlation between several numerical variables, including budget, popularity, vote average, and user rating, and visualized this as a heatmap.
+Purpose: The correlation matrix helped us explore relationships between key numerical attributes. For example, it allowed us to see whether higher-budget films correlate with higher user ratings or greater popularity.
+Box Plot: Distribution of Movie Ratings by Release Year (2011-2020)
+
+Lastly, we analyzed how movie ratings (vote averages) have changed over time. We created a box plot to show the distribution of ratings for movies released between 2011 and 2020.
+Purpose: The box plot allowed us to compare rating distributions for each year, identifying any trends or significant changes in how movies have been rated by audiences over the last decade.
+Summary of Key Insights:
+Through the visualizations created, we extracted several key insights:
+
+Title Frequency: A small set of movie titles appears frequently, suggesting that certain titles might be reused or particularly common in the dataset.
+Language Diversity: A few dominant languages, such as English, emerge as the most common in movie production, with lesser representation from other languages.
+Production Countries: The top film-producing countries are easily identifiable, giving us insight into the countries that dominate the global film industry.
+User Ratings: The distribution of user ratings shows that most movies tend to be rated moderately, though extreme ratings (very high or low) are also common.
+Correlation Between Variables: The heatmap reveals correlations between attributes like budget, popularity, and ratings, which can help in identifying patterns in movie success.
+Trends in Movie Ratings: The box plot showcases how movie ratings have fluctuated over the last decade, providing a view into potential shifts in audience preferences.
+Conclusion:
+This notebook effectively analyzed the movies dataset by employing various types of visualizations to explore trends, correlations, and distributions of key attributes. The insights gained can serve as a foundation for deeper analysis and provide a clearer understanding of the global film industry, audience preferences, and movie production patterns over time.
+
