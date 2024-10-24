@@ -1,0 +1,15 @@
+For this exercise we began by loading multiple datasets from the Bronze layer located in the BRONZE_MOVIES folder on our PC. The datasets loaded included credits.csv, keywords.csv, links.csv, links_small.csv, movies_metadata.csv, and ratings_small.csv. After loading the data, we transformed the timestamp column in the ratings_small dataset by converting it from Unix format into a human-readable date format. This helped in making the timestamp column more understandable for analysis.
+
+Next, we proceeded to rename certain columns in the ratings_small DataFrame for better clarity and consistency. For instance, we renamed columns like userId to user_id and movieId to movie_id. This ensured that the column names were more intuitive and aligned with best practices for data organization.
+
+After completing the initial cleaning process for ratings_small, we saved the cleaned DataFrame to the Silver layer, where the cleaned and transformed data would be stored for further analysis. Moving on to the movies_cleaned.csv dataset, we applied one-hot encoding to the genres column. By splitting the genres into separate binary columns, we made it easier to work with categorical data for future analysis and machine learning tasks. After the one-hot encoding, we removed the original genres column to avoid redundancy.
+
+Once we cleaned the necessary datasets, we began merging them. For example, we merged movies_cleaned with ratings_cleaned based on common columns such as id and movie_id. This allowed us to combine relevant information from different datasets, creating a more comprehensive dataset in the Gold layer.
+
+To ensure data consistency, we also handled duplicates by grouping the data based on movie_id and user_id and calculating the average ratings for each movie-user pair. This process helped to simplify the dataset and ensure that only one entry existed for each unique combination of movie and user.
+
+After completing the transformations and cleaning processes, we saved the merged and cleaned datasets to the Gold layer for further analysis. One specific transformation we made was on the production_countries column, where we parsed the JSON-like data to extract and list the country names in a readable format. This made it easier to interpret and analyze the production countries of movies.
+
+We also merged additional datasets like keywords_cleaned with the previously merged datasets to enrich the data with more information. This was done by performing a left merge, which ensured that all movies from the primary dataset were kept while adding keyword information where available.
+
+Our objective throughout the process was to convert the raw data from the Bronze layer into well-structured, analysis-ready datasets in the Silver and Gold layers. We achieved this by performing key transformations such as one-hot encoding, merging different datasets, renaming columns for clarity, and eliminating duplicates. These steps helped us organize the data in a way that made it suitable for more in-depth analysis.
