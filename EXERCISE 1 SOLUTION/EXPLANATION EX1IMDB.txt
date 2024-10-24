@@ -1,0 +1,72 @@
+We would like to provide a detailed explanation of the steps we followed during the data cleaning and transformation process for the name_basics and title_principals files, part of IMDB dataset . We could only process these files for the medallion artichetcture as all other attempts resultsed in out of memory error of our computers.We tried also using chunks method or dask dataframe, but still the computer was not able to process the larg files therefore we took under processing the two above mentioned files.
+
+From bronze to silver and then to gold layer the following steps were followed:
+
+1. Initial Null Value Check in the name_basics File
+We began by loading the name_basics_exploded_final_knownForTitles_filled.tsv file into a pandas DataFrame, which includes various attributes for individuals in the IMDB dataset. To understand the state of the data, we checked for null values across all columns and printed a summary of these missing values. This helped us identify areas that required further cleaning.
+
+2. Removing Duplicates from the name_basics File
+Once the initial null value inspection was complete, we moved on to removing any duplicate rows across all columns to ensure data consistency. We processed the dataset by dropping duplicates and saving the cleaned version to a new file (name_basics_exploded_final.tsv). This was an important step in maintaining data integrity, especially in a dataset of this size.
+
+3. Dropping the 'deathYear' Column
+Upon further examination, we determined that the 'deathYear' column was not relevant to our analysis and could be safely removed. We loaded the cleaned name_basics_exploded_final.tsv file, dropped the 'deathYear' column, and saved the updated DataFrame as name_basics_exploded_final1.tsv. This helped streamline the dataset for more efficient processing in subsequent steps.
+
+4. Inspecting the Structure of the Updated DataFrame
+To confirm the transformations were applied correctly, we inspected the structure of the name_basics_exploded_final1.tsv file by printing the column names and the first few rows. This allowed us to verify that the data was correctly organized and that no unintended alterations had occurred during the cleaning process.
+
+5. Converting 'birthYear' to Integer Data Type
+We noticed that the 'birthYear' column was in string format, which was not suitable for further analysis. Therefore, we converted the 'birthYear' column to an integer data type to prepare it for potential numerical operations. After ensuring the conversion was successful, we saved the DataFrame back to the same file (name_basics_exploded_final1.tsv).
+
+6. Loading and Inspecting the title.principals File
+Next, we turned our attention to the title.principals file from the BRONZE layer, which contains information about the principals (e.g., directors, writers, actors) associated with titles. We loaded the file into a DataFrame, handling null values by treating \N as missing data. To verify that the file loaded correctly, we printed the first few rows.
+
+7. Counting Null Values in the title.principals File
+To further assess the quality of the data, we processed the title.principals file in chunks, counting the null values for each column across the entire dataset. This allowed us to identify specific columns that required more attention in terms of data cleaning, ensuring that our next transformations would be more targeted.
+
+8. Handling Missing Values in the 'Job' Column
+We addressed missing values in the 'job' column of the title.principals file by filling them with the placeholder value 'Unknown.' This decision was made to avoid losing valuable records while still acknowledging the absence of explicit job titles. We then saved this cleaned version as title_principals_cleaned.csv in the SILVER layer.
+
+9. Cleaning the 'Characters' Column
+The next step involved re-cleaning the 'characters' column, which contained unnecessary string formatting such as square brackets and quotes. We processed the file in chunks to reduce memory usage, applied string manipulation to remove the extraneous formatting, and handled missing values by filling them with 'Unknown'. The re-cleaned data was saved as title_principals_recleaned.csv.
+
+10. Inspecting the First Few Rows of the Re-cleaned File
+To ensure the cleaning was successful, we loaded and inspected the first few rows of the newly re-cleaned title_principals_recleaned.csv file. This helped us confirm that the transformations were applied as intended and the dataset was in good condition for further analysis.
+
+11. Dropping the 'Ordering' Column and Removing Duplicates
+After reviewing the dataset, we determined that the 'ordering' column was not necessary for our analysis and could be removed. We processed the title_principals_recleaned.csv file in chunks, dropped the 'ordering' column, and removed any duplicates present within each chunk. The cleaned data was saved as title_principals_no_duplicates.csv.
+
+12. Final Inspection of the Cleaned title_principals File
+As a final step, we loaded the title_principals_no_duplicates.csv file to inspect the first few rows and ensure that the cleaning process was complete. The file now contained only the relevant columns, with missing values handled appropriately, and all duplicates removed.
+We would like to continue our explanation of the steps we followed during the GOLD layer transformations and further aggregations, which represent the final stage of our data processing pipeline for the IMDB dataset. In this stage, we focused on aggregating and summarizing data from the SILVER layer files to create analysis-ready datasets.
+
+1. GOLD Layer Transformations
+a. Loading the Title Principals and Name Basics Datasets
+We began the transformation by loading the title_principals_no_duplicates.csv and name_basics_exploded_final1.tsv files, which were cleaned and stored in the SILVER layer. To optimize memory usage, we specified the data types for certain columns (e.g., tconst, nconst, and job in the title_principals file, and nconst, primaryName, and primaryProfession in the name_basics file). This step was crucial for efficient data processing, especially given the size of the datasets.
+
+b. Counting Titles Associated with Each Individual
+To summarize the contributions of individuals (identified by nconst), we used the groupby() function on the nconst column in the title_principals DataFrame. We calculated the number of unique titles (tconst) associated with each individual and stored this information in a new DataFrame called title_counts. This provided us with an aggregated view of the number of titles each individual was involved in.
+
+c. Merging with Name Basics
+Next, we merged the title_counts DataFrame with the name_basics DataFrame to associate each individual (nconst) with their primaryName and primaryProfession. This allowed us to enrich our aggregated data with relevant details about each individual. We used a left join to ensure that all individuals from the title_principals dataset were included, even if they did not appear in the name_basics dataset.
+
+d. Handling Duplicates
+After the merge, we noticed that some individuals had multiple professions listed, which created duplicates in the merged DataFrame. To resolve this, we used the drop_duplicates() function to remove any duplicate rows. This resulted in a cleaner dataset that contained unique individuals and their corresponding contributions to titles in the IMDB dataset.
+
+e. Saving the Individual Contributions Summary
+The resulting dataset, which we called individual_summary, was then saved as a CSV file (gold_individual_summary.csv) in the GOLD layer. This file contains the number of titles associated with each individual, along with their primary name and profession. To verify the correctness of the transformations, we printed the first few rows of the dataset for inspection.
+
+2. Further Aggregations of the GOLD Layer
+a. Removing Duplicates and Aggregating Data
+For further aggregation, we loaded the gold_individual_summary.csv file and performed additional cleaning. Specifically, we grouped the data by nconst and primaryName, aggregating the total_titles and combining the primaryProfession column. For the primaryProfession, we used a lambda function to join unique professions with a comma, which allowed us to capture all professions listed for each individual without duplication.
+
+b. Saving the Cleaned Summary
+The cleaned and aggregated DataFrame was saved as cleaned_individual_summary.csv. This file represents a more refined version of the individual contributions summary, providing unique individuals with their associated titles and professions in a compact format. As with the previous step, we printed the first few rows to ensure that the transformations were applied correctly.
+3. Additional Gold Layer Aggregations: Title Category Summary
+a. Counting Titles by Category
+In a separate aggregation, we focused on summarizing the number of titles associated with different categories from the title_principals dataset. We grouped the dataset by the category column (which includes roles such as actor, director, producer, etc.) and counted the unique number of titles (tconst) for each category. This provided us with a high-level overview of how many titles were associated with each type of principal.
+
+b. Saving the Title Category Summary
+The results of this aggregation were saved as a new CSV file (gold_title_category_summary.csv) in the GOLD layer. This file serves as a useful summary for analyzing the distribution of titles across different categories of principals. Once again, we printed the first few rows of the summary to ensure the aggregation was performed correctly.
+
+Conclusion
+In the GOLD layer, we have created several key aggregated datasets that provide a comprehensive view of the individuals and roles associated with titles in the IMDB dataset. These final outputs, saved as CSV files, are now ready for further analysis, visualization, and reporting. By following a structured process of loading, merging, cleaning, and aggregating data, we have ensured that the GOLD layer is both accurate and optimized for analysis.
