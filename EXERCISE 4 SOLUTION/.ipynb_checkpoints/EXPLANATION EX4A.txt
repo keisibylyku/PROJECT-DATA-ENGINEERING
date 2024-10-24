@@ -1,0 +1,39 @@
+Report: IMDB Data Analysis with Visualizations
+This report details the analysis of IMDB data using several visualizations. The data originates from the gold layer files, which represent cleaned and transformed data in the IMDB dataset. These visualizations help uncover trends in the number of titles produced, contributions by individuals, and how various categories and professions are distributed in the dataset.
+
+1. Top 10 Individuals with Most Titles (Bar Chart)
+We begin by examining the top 10 individuals with the most titles in the dataset. The data was sourced from the cleaned_individual_summary.csv file, which includes information about individuals and their total titles. We used a bar chart to represent this information, where each bar corresponds to an individual, and the height of the bar represents the number of titles they contributed. This visualization helps highlight the most prolific individuals in the IMDB dataset.
+
+2. Top 10 Categories by Number of Titles (Bar Chart)
+Next, we looked at the top 10 categories with the most titles from the gold_title_category_summary.csv file. Each category represents a distinct genre or group of titles, and the bar chart shows how many titles fall into each of these categories. This visualization provides insights into which categories are the most populated, offering a high-level view of the distribution of titles in the dataset.
+
+3. Top 5 Most Common Professions (Bar Chart)
+This bar chart illustrates the top 5 most common professions based on individuals' primary profession from the cleaned_individual_summary.csv file. By splitting the primary profession column and counting occurrences, we created a visualization that shows which professions are most frequently associated with individuals in the dataset. The chart helps highlight dominant professions in the industry, providing a better understanding of career roles in title production.
+
+4. Top 10 Individuals by Number of Titles (Line Plot)
+In this line plot, we revisited the top 10 individuals by the number of titles but visualized the data using a different approach. The line plot connects the individuals in order of their title count, with markers to emphasize data points. This method helps visualize trends over individuals, giving a clearer understanding of how the title counts vary between the top 10 contributors.
+
+5. Number of Titles by Top 10 Categories (Line Plot)
+Similar to the previous visualization, this line plot focuses on the top 10 title categories by the number of titles. The line plot connects the categories in descending order, emphasizing how the number of titles decreases across categories. This visualization helps illustrate the distribution of title counts and highlights the most significant categories in terms of title production.
+
+6. Top 5 Categories by Number of Titles (Pie Chart)
+To offer a different perspective, we used a pie chart to display the top 5 title categories based on the number of titles. The pie chart provides a proportional view of how titles are distributed among the top 5 categories, with each slice representing a category's contribution. This visualization emphasizes the largest title categories and how they compare to one another.
+
+Additional Visualizations: Detailed Explanations
+7. Distribution of Titles for Archive Categories (Pie Chart)
+In this visualization, we focused on examining the distribution of titles categorized as “archive” in the IMDB dataset. We first loaded the gold_title_category_summary.csv dataset and filtered the rows where the title category contains the word "archive." The pie chart visualizes the proportion of titles for different archive-related categories, with each slice representing a specific archive category and its corresponding share of titles. The percentages are displayed to highlight the proportion of titles in each archive category. This visualization helps illustrate how archive-related categories are distributed in the dataset.
+
+8. Top 5 Professions by Title Contribution (Pie Chart)
+This pie chart illustrates the top 5 professions contributing the most to the total number of titles in the dataset. The data comes from the cleaned_individual_summary.csv file. We extracted the top 5 professions based on the total number of titles associated with individuals in those professions. The pie chart gives a clear representation of how title contributions are distributed among the top professions, providing insights into which professions dominate in title production. Each slice represents a profession, and the size of the slice shows the contribution of that profession relative to the others.
+
+9. Q-Q Plot of Total Titles
+A Q-Q (quantile-quantile) plot was created to assess whether the distribution of the 'total_titles' column follows a normal distribution. This plot compares the theoretical quantiles of a normal distribution to the actual data from the cleaned_individual_summary.csv file. A straight line in this plot would indicate that the data follows a normal distribution, while deviations from the line would suggest non-normality. This type of plot is useful for identifying how the total number of titles deviates from a normal distribution and whether it contains outliers or patterns not fitting a typical distribution.
+
+10. Distribution of Number of Titles by Category (Histogram)
+In this histogram, we analyzed the distribution of the number of titles across various categories. We used the gold_title_category_summary.csv file to plot a histogram that shows the frequency of title counts within different categories. Each bar in the histogram represents the number of categories that have a certain number of titles, allowing us to observe how title counts are spread out across categories. A kernel density estimate (KDE) line is also overlaid to provide a smoother representation of the distribution, giving a clearer picture of how title numbers are concentrated in specific ranges.
+
+11. Total Number of Titles by Top 5 Primary Professions (Bar Chart)
+This bar chart visualizes the total number of titles associated with the top 5 primary professions in the IMDB dataset. The data comes from the cleaned_individual_summary.csv file. We first identified the top 5 professions based on the sum of total titles, then filtered the dataset to include only those professions. The bar chart shows how many titles each profession contributed, with each bar representing a profession and its height representing the total number of titles. This visualization provides insights into which professions dominate title production, offering a clear comparison between the top professions in the dataset.
+
+Conclusion
+These visualizations provide detailed insights into the IMDB dataset, from identifying the most prolific individuals and categories to understanding profession distributions and title counts. Each visualization helps uncover patterns that are useful for both data exploration and drawing conclusions about the dataset. Through bar charts, pie charts, line plots, and histograms, we were able to explore different aspects of the data in an easy-to-interpret manner. These visualizations collectively contribute to a better understanding of the IMDB data and its underlying structure.
